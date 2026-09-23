@@ -343,5 +343,7 @@ navLinks.forEach((link) => {
         navLinks.forEach((item) => {
             item.classList.remove("active");
         });
+
+        link.blur();
     });
 });
