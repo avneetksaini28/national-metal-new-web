@@ -49,30 +49,35 @@ const sections = [
 
 function updateActiveNav() {
 
-    const scrollPosition = window.scrollY + 220;
+    const scrollPosition = window.scrollY + 120;
 
     let currentSection = sections[0];
 
     sections.forEach((section) => {
 
-        if (section.offsetTop <= scrollPosition) {
+        const sectionTop = section.offsetTop;
+        const sectionBottom = sectionTop + section.offsetHeight;
+
+        if (
+            scrollPosition >= sectionTop &&
+            scrollPosition < sectionBottom
+        ) {
             currentSection = section;
         }
 
     });
 
     navLinks.forEach((link) => {
-
         link.classList.remove("active");
-
-        if (
-            link.getAttribute("href") ===
-            "#" + currentSection.id
-        ) {
-            link.classList.add("active");
-        }
-
     });
+
+    const activeLink = document.querySelector(
+        `.nav-links a[href="#${currentSection.id}"]`
+    );
+
+    if (activeLink) {
+        activeLink.classList.add("active");
+    }
 }
 
 window.addEventListener(
