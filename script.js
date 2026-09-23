@@ -338,12 +338,3 @@ if (window.innerWidth <= 600) {
     });
 
 }
-navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-        navLinks.forEach((item) => {
-            item.classList.remove("active");
-        });
-
-        link.blur();
-    });
-});
