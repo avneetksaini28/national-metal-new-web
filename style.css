@@ -1474,11 +1474,15 @@ img {
     white-space: nowrap;
 }
 
-.nav-links a:hover,
+
+/* Mobile: don't keep tap/hover color after clicking */
+.nav-links a:hover {
+    color: rgba(255,255,255,0.62);
+}
+
 .nav-links a.active {
     color: var(--orange-light);
 }
-
     /* Hero */
 
     .hero {
