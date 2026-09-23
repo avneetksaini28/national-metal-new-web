@@ -240,64 +240,60 @@ if (
    REVEAL SECTIONS
 ========================================================= */
 
-const revealItems =
-    document.querySelectorAll(
-        ".about-grid, " +
-        ".products-header, " +
-        ".product-card, " +
-        ".capabilities-intro, " +
-        ".capability, " +
-        ".quality-copy, " +
-        ".contact-inner"
-    );
+const revealItems = document.querySelectorAll(
+    ".about-grid, " +
+    ".products-header, " +
+    ".capabilities-intro, " +
+    ".capability, " +
+    ".quality-copy, " +
+    ".contact-inner"
+);
 
+if ("IntersectionObserver" in window) {
 
-if (
-    "IntersectionObserver"
-    in window
-) {
+    const observer = new IntersectionObserver(
+        (entries) => {
 
-    const observer =
-        new IntersectionObserver(
-            (entries) => {
+            entries.forEach((entry) => {
 
-                entries.forEach(
-                    (entry) => {
+                if (entry.isIntersecting) {
 
-                        if (
-                            entry.isIntersecting
-                        ) {
+                    entry.target.classList.add("revealed");
 
-                            entry.target.classList.add(
-                                "revealed"
-                            );
+                    observer.unobserve(entry.target);
+                }
 
-                            observer.unobserve(
-                                entry.target
-                            );
+            });
 
-                        }
-
-                    }
-                );
-
-            },
-            {
-                threshold: 0.12
-            }
-        );
-
-
-    revealItems.forEach(
-        (item) => {
-
-            item.classList.add(
-                "reveal-item"
-            );
-
-            observer.observe(item);
-
+        },
+        {
+            threshold: 0.12
         }
     );
+
+    revealItems.forEach((item) => {
+
+        item.classList.add("reveal-item");
+
+        observer.observe(item);
+
+    });
+}
+
+
+/* =========================================================
+   MOBILE PRODUCT IMAGE PRELOAD
+   Loads all product images immediately.
+========================================================= */
+
+if (window.innerWidth <= 600) {
+
+    document.querySelectorAll(".product-card img").forEach((img) => {
+
+        const preload = new Image();
+
+        preload.src = img.currentSrc || img.src;
+
+    });
 
 }
