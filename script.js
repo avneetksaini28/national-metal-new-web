@@ -338,8 +338,3 @@ if (window.innerWidth <= 600) {
     });
 
 }
-window.addEventListener("scroll", () => {
-    navLinks.forEach((link) => {
-        link.classList.remove("active");
-    });
-}, { passive: true });
