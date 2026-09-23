@@ -13,9 +13,7 @@ const site = document.querySelector("#site");
 
 document.body.classList.add("intro-active");
 
-
 setTimeout(() => {
-
     if (site) {
         site.classList.add("visible");
     }
@@ -31,58 +29,49 @@ setTimeout(() => {
 }, 2600);
 
 
-
 /* =========================================================
-   MOBILE NAVIGATION
-========================================================= */
-
-/*
-   Mobile navigation uses the horizontal links directly.
-   No dropdown menu required.
-*/
-/* =========================================================
-   MOBILE NAVIGATION — ACTIVE SECTION
+   MOBILE / NAVIGATION
+   Clear active link when scrolling away
 ========================================================= */
 
 const navLinks = document.querySelectorAll(".nav-links a");
-const sections = document.querySelectorAll("section[id]");
 
-if (navLinks.length && sections.length) {
+function clearActiveNav() {
+    navLinks.forEach(link => {
+        link.classList.remove("active");
+    });
+}
 
-    const navObserver = new IntersectionObserver(
-        (entries) => {
+navLinks.forEach(link => {
 
-            entries.forEach((entry) => {
+    link.addEventListener("click", () => {
 
-                if (entry.isIntersecting) {
+        navLinks.forEach(item => {
+            item.classList.remove("active");
+        });
 
-                    navLinks.forEach((link) => {
-                        link.classList.remove("active");
-                    });
+        link.classList.add("active");
 
-                    const activeLink = document.querySelector(
-                        `.nav-links a[href="#${entry.target.id}"]`
-                    );
-
-                    if (activeLink) {
-                        activeLink.classList.add("active");
-                    }
-
-                }
-
-            });
-
-        },
-        {
-            threshold: 0.35
-        }
-    );
-
-    sections.forEach((section) => {
-        navObserver.observe(section);
     });
 
-}
+});
+
+
+/* Remove the yellow active state when user scrolls */
+
+let scrollTimer;
+
+window.addEventListener("scroll", () => {
+
+    clearTimeout(scrollTimer);
+
+    scrollTimer = setTimeout(() => {
+
+        clearActiveNav();
+
+    }, 80);
+
+}, { passive: true });
 
 
 /* =========================================================
@@ -104,7 +93,6 @@ if (
     productPrev &&
     productNext
 ) {
-
 
     /* -----------------------------------------------------
        GET CARD SCROLL DISTANCE
@@ -132,9 +120,7 @@ if (
             0;
 
         return card.offsetWidth + gap;
-
     }
-
 
 
     /* -----------------------------------------------------
@@ -146,18 +132,12 @@ if (
         () => {
 
             productsTrack.scrollBy({
-
-                left:
-                    getScrollAmount(),
-
-                behavior:
-                    "smooth"
-
+                left: getScrollAmount(),
+                behavior: "smooth"
             });
 
         }
     );
-
 
 
     /* -----------------------------------------------------
@@ -169,18 +149,12 @@ if (
         () => {
 
             productsTrack.scrollBy({
-
-                left:
-                    -getScrollAmount(),
-
-                behavior:
-                    "smooth"
-
+                left: -getScrollAmount(),
+                behavior: "smooth"
             });
 
         }
     );
-
 
 
     /* -----------------------------------------------------
@@ -188,9 +162,7 @@ if (
     ----------------------------------------------------- */
 
     let isDragging = false;
-
     let startX = 0;
-
     let startScroll = 0;
 
 
@@ -199,10 +171,7 @@ if (
         (event) => {
 
             isDragging = true;
-
-            startX =
-                event.pageX;
-
+            startX = event.pageX;
             startScroll =
                 productsTrack.scrollLeft;
 
@@ -239,7 +208,6 @@ if (
 
         productsTrack.style.scrollBehavior =
             "smooth";
-
     }
 
 
@@ -247,7 +215,6 @@ if (
         "mouseup",
         stopDragging
     );
-
 
     productsTrack.addEventListener(
         "mouseleave",
@@ -266,9 +233,7 @@ if (
             image.addEventListener(
                 "dragstart",
                 (event) => {
-
                     event.preventDefault();
-
                 }
             );
 
@@ -277,49 +242,66 @@ if (
 }
 
 
-
 /* =========================================================
    REVEAL SECTIONS
 ========================================================= */
 
-const revealItems = document.querySelectorAll(
-    ".about-grid, " +
-    ".products-header, " +
-    ".capabilities-intro, " +
-    ".capability, " +
-    ".quality-copy, " +
-    ".contact-inner"
-);
+const revealItems =
+    document.querySelectorAll(
+        ".about-grid, " +
+        ".products-header, " +
+        ".capabilities-intro, " +
+        ".capability, " +
+        ".quality-copy, " +
+        ".contact-inner"
+    );
+
 
 if ("IntersectionObserver" in window) {
 
-    const observer = new IntersectionObserver(
-        (entries) => {
+    const observer =
+        new IntersectionObserver(
+            (entries) => {
 
-            entries.forEach((entry) => {
+                entries.forEach(
+                    (entry) => {
 
-                if (entry.isIntersecting) {
+                        if (
+                            entry.isIntersecting
+                        ) {
 
-                    entry.target.classList.add("revealed");
+                            entry.target.classList.add(
+                                "revealed"
+                            );
 
-                    observer.unobserve(entry.target);
-                }
+                            observer.unobserve(
+                                entry.target
+                            );
 
-            });
+                        }
 
-        },
-        {
-            threshold: 0.12
+                    }
+                );
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+
+    revealItems.forEach(
+        (item) => {
+
+            item.classList.add(
+                "reveal-item"
+            );
+
+            observer.observe(item);
+
         }
     );
 
-    revealItems.forEach((item) => {
-
-        item.classList.add("reveal-item");
-
-        observer.observe(item);
-
-    });
 }
 
 
@@ -330,12 +312,16 @@ if ("IntersectionObserver" in window) {
 
 if (window.innerWidth <= 600) {
 
-    document.querySelectorAll(".product-card img").forEach((img) => {
+    document
+        .querySelectorAll(".product-card img")
+        .forEach((img) => {
 
-        const preload = new Image();
+            const preload = new Image();
 
-        preload.src = img.currentSrc || img.src;
+            preload.src =
+                img.currentSrc ||
+                img.src;
 
-    });
+        });
 
 }
