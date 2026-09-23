@@ -33,56 +33,55 @@ setTimeout(() => {
 
 
 /* =========================================================
-   MOBILE NAVIGATION
-========================================================= */
-
-/*
-   Mobile navigation uses the horizontal links directly.
-   No dropdown menu required.
-*/
-/* =========================================================
    MOBILE NAVIGATION — ACTIVE SECTION
+   Updates the yellow nav link while scrolling.
 ========================================================= */
 
 const navLinks = document.querySelectorAll(".nav-links a");
-const sections = document.querySelectorAll("section[id]");
 
-if (navLinks.length && sections.length) {
+const sections = [
+    document.querySelector("#home"),
+    document.querySelector("#about"),
+    document.querySelector("#products"),
+    document.querySelector("#capabilities"),
+    document.querySelector("#contact")
+].filter(Boolean);
 
-    const navObserver = new IntersectionObserver(
-        (entries) => {
+function updateActiveNav() {
 
-            entries.forEach((entry) => {
+    const scrollPosition = window.scrollY + 220;
 
-                if (entry.isIntersecting) {
-
-                    navLinks.forEach((link) => {
-                        link.classList.remove("active");
-                    });
-
-                    const activeLink = document.querySelector(
-                        `.nav-links a[href="#${entry.target.id}"]`
-                    );
-
-                    if (activeLink) {
-                        activeLink.classList.add("active");
-                    }
-
-                }
-
-            });
-
-        },
-        {
-            threshold: 0.35
-        }
-    );
+    let currentSection = sections[0];
 
     sections.forEach((section) => {
-        navObserver.observe(section);
+
+        if (section.offsetTop <= scrollPosition) {
+            currentSection = section;
+        }
+
     });
 
+    navLinks.forEach((link) => {
+
+        link.classList.remove("active");
+
+        if (
+            link.getAttribute("href") ===
+            "#" + currentSection.id
+        ) {
+            link.classList.add("active");
+        }
+
+    });
 }
+
+window.addEventListener(
+    "scroll",
+    updateActiveNav,
+    { passive: true }
+);
+
+updateActiveNav();
 
 
 /* =========================================================
