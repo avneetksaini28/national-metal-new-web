@@ -48,23 +48,14 @@ const sections = [
 ].filter(Boolean);
 
 function updateActiveNav() {
-
-    const scrollPosition = window.scrollY + 120;
+    const scrollPosition = window.scrollY + 220;
 
     let currentSection = sections[0];
 
     sections.forEach((section) => {
-
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + section.offsetHeight;
-
-        if (
-            scrollPosition >= sectionTop &&
-            scrollPosition < sectionBottom
-        ) {
+        if (section.offsetTop <= scrollPosition) {
             currentSection = section;
         }
-
     });
 
     navLinks.forEach((link) => {
@@ -80,15 +71,21 @@ function updateActiveNav() {
     }
 }
 
+/* Scroll controls the active section */
 window.addEventListener(
     "scroll",
     updateActiveNav,
     { passive: true }
 );
 
+/* Clicking a link immediately removes its yellow state */
+navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+        link.classList.remove("active");
+    });
+});
+
 updateActiveNav();
-
-
 /* =========================================================
    PRODUCT CAROUSEL
 ========================================================= */
