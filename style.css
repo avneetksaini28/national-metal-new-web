@@ -1474,7 +1474,8 @@ img {
     white-space: nowrap;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
     color: var(--orange-light);
 }
 

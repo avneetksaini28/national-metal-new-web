@@ -40,7 +40,49 @@ setTimeout(() => {
    Mobile navigation uses the horizontal links directly.
    No dropdown menu required.
 */
+/* =========================================================
+   MOBILE NAVIGATION — ACTIVE SECTION
+========================================================= */
 
+const navLinks = document.querySelectorAll(".nav-links a");
+const sections = document.querySelectorAll("section[id]");
+
+if (navLinks.length && sections.length) {
+
+    const navObserver = new IntersectionObserver(
+        (entries) => {
+
+            entries.forEach((entry) => {
+
+                if (entry.isIntersecting) {
+
+                    navLinks.forEach((link) => {
+                        link.classList.remove("active");
+                    });
+
+                    const activeLink = document.querySelector(
+                        `.nav-links a[href="#${entry.target.id}"]`
+                    );
+
+                    if (activeLink) {
+                        activeLink.classList.add("active");
+                    }
+
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.35
+        }
+    );
+
+    sections.forEach((section) => {
+        navObserver.observe(section);
+    });
+
+}
 
 
 /* =========================================================
