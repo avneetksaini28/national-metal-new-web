@@ -1438,7 +1438,7 @@ img {
 /* Navigation */
 
 .navbar {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;
@@ -1601,7 +1601,7 @@ img {
     width: 42px;
     height: 42px;
 
-    top: calc(50% - 60px);
+    top: calc(50% - 70px);
 
     background:
         rgba(8,10,12,0.72);
