@@ -1435,80 +1435,63 @@ img {
     }
 
 
-    /* Navigation */
+/* Navigation */
 
-    .navbar {
+.navbar {
 
-        padding:
-            18px
-            5vw;
+    padding:
+        16px
+        5vw;
 
-    }
+}
 
-    .nav-logo img {
+.nav-logo img {
 
-        width: 105px;
+    width: 100px;
 
-    }
+}
 
-    .menu-toggle {
+/* Hide hamburger on mobile */
 
-        display: block;
+.menu-toggle {
 
-    }
+    display: none;
 
-    .nav-links {
+}
 
-        position: fixed;
+/* Simple mobile navigation */
 
-        inset:
-            70px
-            0
-            0
-            0;
+.nav-links {
 
-        display: flex;
+    display: flex;
 
-        flex-direction: column;
+    align-items: center;
 
-        align-items: flex-start;
+    gap: 18px;
 
-        justify-content: center;
+    margin-left: auto;
 
-        gap: 30px;
+}
 
-        padding: 10vw;
+.nav-links a {
 
-        background: #080a0c;
+    color: rgba(255,255,255,0.62);
 
-        opacity: 0;
+    font-size: 8px;
 
-        visibility: hidden;
+    text-transform: uppercase;
 
-        transform: translateY(-10px);
+    letter-spacing: 0.08em;
 
-        transition:
-            opacity 0.3s ease,
-            visibility 0.3s ease,
-            transform 0.3s ease;
+    white-space: nowrap;
 
-    }
+}
 
-    .nav-links.open {
+.nav-links a:hover {
 
-        opacity: 1;
+    color: var(--orange-light);
 
-        visibility: visible;
-
-        transform: translateY(0);
-
-    }
-
-    .nav-links a {
-
-        font-size: 18px;
-
-    }
+}
 
 
     /* Hero */
@@ -1610,28 +1593,24 @@ img {
     }
 
     .product-card {
+    flex: 0 0 88%;
+}
 
-        flex: 0 0 88%;
+.product-image-wrap {
+    aspect-ratio: 1 / 1;
+}
 
-    }
+.product-image-wrap img {
+    object-position: center center;
+}
 
-    .product-image-wrap {
-
-        aspect-ratio: 1.05 / 1;
-
-    }
-
-    .product-arrow {
-
-        width: 42px;
-        height: 42px;
-
-        top:  calc(50% - 50px);
-
-        background:
-            rgba(8,10,12,0.72);
-
-    }
+.product-arrow {
+    width: 42px;
+    height: 42px;
+    top: calc(50% - 60px);
+    background:
+        rgba(8,10,12,0.72);
+}
 
     .product-prev {
         left: 8px;

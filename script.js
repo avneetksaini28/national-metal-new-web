@@ -36,52 +36,10 @@ setTimeout(() => {
    MOBILE NAVIGATION
 ========================================================= */
 
-const menuToggle =
-    document.querySelector("#menuToggle");
-
-const navLinks =
-    document.querySelector("#navLinks");
-
-
-if (menuToggle && navLinks) {
-
-    menuToggle.addEventListener(
-        "click",
-        () => {
-
-            const isOpen =
-                navLinks.classList.toggle("open");
-
-            menuToggle.setAttribute(
-                "aria-expanded",
-                isOpen
-            );
-
-        }
-    );
-
-
-    navLinks
-        .querySelectorAll("a")
-        .forEach((link) => {
-
-            link.addEventListener(
-                "click",
-                () => {
-
-                    navLinks.classList.remove("open");
-
-                    menuToggle.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-                }
-            );
-
-        });
-
-}
+/*
+   Mobile navigation uses the horizontal links directly.
+   No dropdown menu required.
+*/
 
 
 
